@@ -44,15 +44,13 @@ func Same(t1, t2 *tree.Tree) bool {
 		defer close(ch2)
 		Walk(t2, ch2)
 	}()
-	var t1val, t2val int
 	var slice1, slice2 []int
-	var ch1ok, ch2ok bool
 	for {
-		t1val, ch1ok = <-ch1
+		t1val, ch1ok := <-ch1
 		if ch1ok {
 			slice1 = append(slice1, t1val)
 		}
-		t2val, ch2ok = <-ch2
+		t2val, ch2ok := <-ch2
 		if ch2ok {
 			slice2 = append(slice2, t2val)
 		}
