@@ -12,8 +12,8 @@ func Walk(t *tree.Tree, ch chan int) {
 	if t == nil {
 		return
 	}
-	ch <- t.Value
 	Walk(t.Left, ch)
+	ch <- t.Value
 	Walk(t.Right, ch)
 }
 
