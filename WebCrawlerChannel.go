@@ -5,13 +5,13 @@ import (
 	"sync"
 )
 
-/// **********
+// a mutex cache of urls
 type SyncedCache struct {
 	v   map[string]bool
 	mux sync.Mutex
 }
 
-// Inc increments the counter for the given key.
+// Add a url to the cache
 func (c *SyncedCache) Add(url string) {
 	c.mux.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
@@ -19,7 +19,7 @@ func (c *SyncedCache) Add(url string) {
 	c.mux.Unlock()
 }
 
-// Value returns the current value of the counter for the given key.
+// check if a url exists in the cache.
 func (c *SyncedCache) Exists(url string) bool {
 	c.mux.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
@@ -27,7 +27,6 @@ func (c *SyncedCache) Exists(url string) bool {
 	return c.v[url]
 }
 
-/// **********
 type Fetcher interface {
 	// Fetch returns the body of URL and
 	// a slice of URLs found on that page.
